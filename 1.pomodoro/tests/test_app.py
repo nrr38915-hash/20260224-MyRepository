@@ -20,7 +20,8 @@ class PomodoroAppTestCase(unittest.TestCase):
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'<!DOCTYPE html>', response.data)
-        self.assertIn(b'pomodoro', response.data.lower())
+        # HTMLにタイマー要素が含まれることを確認
+        self.assertIn(b'timer', response.data.lower())
     
     def test_index_contains_timer_elements(self):
         """メインページに必要な要素が含まれる"""
