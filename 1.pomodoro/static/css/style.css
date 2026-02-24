@@ -1,5 +1,10 @@
 /* ポモドーロタイマー - 視覚的フィードバック強化版 スタイル */
 
+:root {
+    --progress-radius: 140;
+    --progress-circumference: calc(2 * 3.14159 * var(--progress-radius)); /* 2πr ≈ 879.65 */
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -80,7 +85,7 @@ h1 {
     stroke: url(#progressGradient);
     stroke-width: 12;
     stroke-linecap: round;
-    stroke-dasharray: 879.645943; /* 2πr where r=140 */
+    stroke-dasharray: var(--progress-circumference);
     stroke-dashoffset: 0;
     transition: stroke-dashoffset 1s linear, stroke 0.5s ease;
 }

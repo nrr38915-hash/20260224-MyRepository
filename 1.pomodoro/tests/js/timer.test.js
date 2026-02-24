@@ -29,7 +29,7 @@ describe('PomodoroTimer', () => {
     beforeEach(() => {
         setupMockDOM();
         jest.useFakeTimers();
-        const { PomodoroTimer } = require('../static/js/timer.js');
+        const { PomodoroTimer } = require('../../static/js/timer.js');
         timer = new PomodoroTimer();
     });
     
@@ -124,7 +124,8 @@ describe('PomodoroTimer', () => {
             timer.timeRemaining = 1;
             timer.start();
             
-            jest.advanceTimersByTime(1000);
+            jest.advanceTimersByTime(1000); // 1秒経過：timeRemainingが0になる
+            jest.advanceTimersByTime(1000); // もう1秒経過：complete()が呼ばれる
             
             expect(timer.isWorkSession).toBe(false);
             expect(timer.sessionCount).toBe(1);
@@ -136,16 +137,18 @@ describe('PomodoroTimer', () => {
             for (let i = 0; i < 3; i++) {
                 timer.timeRemaining = 1;
                 timer.isWorkSession = true;
+                timer.currentDuration = timer.workDuration;
                 timer.start();
-                jest.advanceTimersByTime(1000);
+                jest.advanceTimersByTime(2000); // 完了まで待つ
                 timer.pause();
             }
             
             // 4セッション目完了
             timer.timeRemaining = 1;
             timer.isWorkSession = true;
+            timer.currentDuration = timer.workDuration;
             timer.start();
-            jest.advanceTimersByTime(1000);
+            jest.advanceTimersByTime(2000);
             
             expect(timer.sessionCount).toBe(4);
             expect(timer.currentDuration).toBe(timer.longBreakDuration);
