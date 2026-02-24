@@ -48,6 +48,7 @@ class User:
         """ストリークを更新"""
         if self.last_session_date is None:
             self.current_streak = 1
+            self.longest_streak = max(self.longest_streak, 1)
         elif self.last_session_date != session_date:
             # 日付が異なる場合、ストリークを更新
             # TODO: 連続性チェック（日付の差が1日かどうか）
