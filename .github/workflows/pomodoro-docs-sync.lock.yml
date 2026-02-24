@@ -23,16 +23,22 @@
 #
 # Detect code changes under 1.pomodoro/ and update documentation to keep specs aligned with source code
 #
+#
 # gh-aw-metadata: {"schema_version":"v1","frontmatter_hash":"32dde050876ab7476591ccc017366a6d1e892ead34f6c475b79c5e6e89afe573","compiler_version":"v0.46.4"}
+#
+# IMPORTANT: Push trigger is temporarily disabled until COPILOT_GITHUB_TOKEN secret is configured.
+# To re-enable automatic documentation sync, uncomment the 'push:' trigger below after setting up the secret.
+# See .github/workflows/README.md for setup instructions.
+#
 
 name: "Pomodoro Documentation Sync"
 "on":
-  push:
-    branches:
-    - main
-    paths:
-    - 1.pomodoro/**
-    - "!1.pomodoro/docs/**"
+  # push:
+  #   branches:
+  #   - main
+  #   paths:
+  #   - 1.pomodoro/**
+  #   - "!1.pomodoro/docs/**"
   workflow_dispatch:
 
 permissions: {}
