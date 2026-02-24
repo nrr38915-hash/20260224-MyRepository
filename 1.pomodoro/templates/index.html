@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ポモドーロタイマー - ゲーミフィケーション</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- ヘッダー: ユーザープロフィール -->
+        <header class="header">
+            <div class="profile-section">
+                <div class="user-info">
+                    <h2 id="username">ユーザー</h2>
+                    <div class="level-badge">
+                        <span class="level-icon">⭐</span>
+                        <span id="user-level">Lv. 1</span>
+                    </div>
+                </div>
+                <div class="xp-bar">
+                    <div class="xp-progress" id="xp-progress"></div>
+                    <span class="xp-text" id="xp-text">0 / 100 XP</span>
+                </div>
+                <div class="streak-display">
+                    <span class="streak-icon">🔥</span>
+                    <span id="streak-count">0</span>
+                    <span class="streak-label">日連続</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- メインエリア: タイマー -->
+        <main class="main-content">
+            <div class="timer-section">
+                <h1>ポモドーロタイマー</h1>
+                
+                <!-- プログレスリング -->
+                <div class="progress-ring-container">
+                    <svg class="progress-ring" width="300" height="300">
+                        <circle class="progress-ring-circle-bg" cx="150" cy="150" r="130"></circle>
+                        <circle class="progress-ring-circle" cx="150" cy="150" r="130" id="progress-circle"></circle>
+                    </svg>
+                    <div class="timer-display">
+                        <div class="time" id="timer-display">25:00</div>
+                    </div>
+                </div>
+
+                <!-- タイマーコントロール -->
+                <div class="timer-controls">
+                    <button class="btn btn-primary" id="start-btn">開始</button>
+                    <button class="btn btn-secondary" id="pause-btn" disabled>一時停止</button>
+                    <button class="btn btn-danger" id="reset-btn">リセット</button>
+                </div>
+
+                <!-- 設定 -->
+                <div class="timer-settings">
+                    <label for="duration-select">時間設定:</label>
+                    <select id="duration-select">
+                        <option value="25">25分</option>
+                        <option value="15">15分</option>
+                        <option value="45">45分</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- 統計とバッジセクション -->
+            <div class="info-panels">
+                <!-- バッジセクション -->
+                <div class="panel badges-panel">
+                    <h3>🏆 バッジ</h3>
+                    <div class="badges-grid" id="badges-grid">
+                        <div class="loading">読み込み中...</div>
+                    </div>
+                </div>
+
+                <!-- 統計セクション -->
+                <div class="panel stats-panel">
+                    <h3>📊 統計</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-label">今週の完了</div>
+                            <div class="stat-value" id="weekly-completed">0</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">今月の完了</div>
+                            <div class="stat-value" id="monthly-completed">0</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">総完了数</div>
+                            <div class="stat-value" id="total-completed">0</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">完了率</div>
+                            <div class="stat-value" id="completion-rate">0%</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">平均集中時間</div>
+                            <div class="stat-value" id="avg-focus-time">0分</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">総集中時間</div>
+                            <div class="stat-value" id="total-focus-time">0分</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- グラフセクション -->
+                <div class="panel chart-panel">
+                    <h3>📈 アクティビティグラフ（過去30日）</h3>
+                    <canvas id="activity-chart"></canvas>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- モーダル: レベルアップ通知 -->
+    <div id="level-up-modal" class="modal">
+        <div class="modal-content level-up">
+            <h2>🎉 レベルアップ！</h2>
+            <p>レベル <span id="new-level"></span> に到達しました！</p>
+            <button class="btn btn-primary" onclick="closeLevelUpModal()">OK</button>
+        </div>
+    </div>
+
+    <!-- モーダル: バッジ獲得通知 -->
+    <div id="badge-modal" class="modal">
+        <div class="modal-content badge-earned">
+            <h2>🏆 バッジ獲得！</h2>
+            <div id="badge-list"></div>
+            <button class="btn btn-primary" onclick="closeBadgeModal()">OK</button>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/timerCore.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/timerUI.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/progressRing.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/gamificationUI.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/statisticsUI.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
