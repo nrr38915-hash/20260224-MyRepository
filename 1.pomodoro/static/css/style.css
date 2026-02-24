@@ -1,0 +1,257 @@
+/* ポモドーロタイマー - 視覚的フィードバック強化版 スタイル */
+
+:root {
+    --progress-radius: 140;
+    --progress-circumference: calc(2 * 3.14159 * var(--progress-radius)); /* 2πr ≈ 879.65 */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 背景エフェクト */
+.background-effects {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+#particleCanvas {
+    width: 100%;
+    height: 100%;
+    opacity: 0.6;
+}
+
+/* メインコンテナ */
+.container {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* タイマーラッパー */
+.timer-wrapper {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: 0 auto 2rem;
+}
+
+/* 円形プログレスバー */
+.progress-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: rotate(-90deg);
+}
+
+.progress-ring-bg {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.2);
+    stroke-width: 12;
+}
+
+.progress-ring-circle {
+    fill: none;
+    stroke: url(#progressGradient);
+    stroke-width: 12;
+    stroke-linecap: round;
+    stroke-dasharray: var(--progress-circumference);
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1s linear, stroke 0.5s ease;
+}
+
+/* グラデーションの色変化 */
+.gradient-start {
+    stop-color: #4299e1; /* 青 */
+    transition: stop-color 0.5s ease;
+}
+
+.gradient-end {
+    stop-color: #3182ce; /* 濃い青 */
+    transition: stop-color 0.5s ease;
+}
+
+/* 中間状態（黄色） */
+.progress-ring-circle.warning .gradient-start {
+    stop-color: #ecc94b;
+}
+
+.progress-ring-circle.warning .gradient-end {
+    stop-color: #d69e2e;
+}
+
+/* 終了間近（赤） */
+.progress-ring-circle.danger .gradient-start {
+    stop-color: #fc8181;
+}
+
+.progress-ring-circle.danger .gradient-end {
+    stop-color: #e53e3e;
+}
+
+/* タイマー表示 */
+.timer-display {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.time {
+    font-size: 3.5rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+}
+
+.status {
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+    opacity: 0.9;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* コントロールボタン */
+.controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.btn {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.3);
+    color: #fff;
+    backdrop-filter: blur(10px);
+}
+
+/* セッション情報 */
+.session-info {
+    margin-top: 1rem;
+}
+
+.session-count {
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.label {
+    opacity: 0.9;
+    margin-right: 0.5rem;
+}
+
+/* 実行中のアニメーション */
+body.timer-running .time {
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+body.timer-running .progress-ring-circle {
+    filter: drop-shadow(0 0 10px currentColor);
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .timer-wrapper {
+        width: 250px;
+        height: 250px;
+    }
+    
+    .progress-ring {
+        width: 250px;
+        height: 250px;
+    }
+    
+    .time {
+        font-size: 2.5rem;
+    }
+    
+    .controls {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .btn {
+        padding: 0.8rem 1.5rem;
+    }
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ポモドーロタイマー - 視覚的フィードバック強化版</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="background-effects">
+        <canvas id="particleCanvas"></canvas>
+    </div>
+    
+    <div class="container">
+        <h1>ポモドーロタイマー</h1>
+        
+        <div class="timer-wrapper">
+            <!-- 円形プログレスバー -->
+            <svg class="progress-ring" width="300" height="300">
+                <defs>
+                    <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" class="gradient-start" />
+                        <stop offset="100%" class="gradient-end" />
+                    </linearGradient>
+                </defs>
+                <circle class="progress-ring-bg" cx="150" cy="150" r="140" />
+                <circle class="progress-ring-circle" cx="150" cy="150" r="140" />
+            </svg>
+            
+            <!-- タイマー表示 -->
+            <div class="timer-display">
+                <div id="timeDisplay" class="time">25:00</div>
+                <div id="statusDisplay" class="status">準備完了</div>
+            </div>
+        </div>
+        
+        <!-- コントロールボタン -->
+        <div class="controls">
+            <button id="startBtn" class="btn btn-primary">開始</button>
+            <button id="pauseBtn" class="btn btn-secondary" disabled>一時停止</button>
+            <button id="resetBtn" class="btn btn-secondary">リセット</button>
+        </div>
+        
+        <!-- セッション情報 -->
+        <div class="session-info">
+            <div class="session-count">
+                <span class="label">完了セッション:</span>
+                <span id="sessionCount">0</span>
+            </div>
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/timer.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/particles.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "name": "pomodoro-timer-tests",
+  "version": "1.0.0",
+  "description": "Tests for Pomodoro Timer with Visual Feedback",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "testMatch": [
+      "**/tests/js/**/*.test.js"
+    ],
+    "collectCoverageFrom": [
+      "static/js/**/*.js",
+      "!static/js/**/*.test.js"
+    ]
+  },
+  "devDependencies": {
+    "jest": "^29.0.0",
+    "jest-environment-jsdom": "^29.0.0"
+  }
+}
