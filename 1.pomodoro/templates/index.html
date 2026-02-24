@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ポモドーロタイマー</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>ポモドーロタイマー</h1>
+            <div class="window-controls">
+                <span class="control minimize">−</span>
+                <span class="control maximize">□</span>
+                <span class="control close">×</span>
+            </div>
+        </div>
+        
+        <div id="status-display" class="status-display">作業中</div>
+        
+        <div class="timer-circle-container">
+            <svg class="progress-ring" width="280" height="280">
+                <circle class="progress-ring-bg" cx="140" cy="140" r="120"></circle>
+                <circle class="progress-ring-fill" id="progress-circle" cx="140" cy="140" r="120"></circle>
+            </svg>
+            <div id="timer-display" class="timer-display">25:00</div>
+        </div>
+        
+        <div class="button-group">
+            <button id="start-btn" class="btn-primary">開始</button>
+            <button id="reset-btn" class="btn-secondary">リセット</button>
+        </div>
+        <div class="button-group-secondary">
+            <button id="skip-btn" class="btn-text">スキップ</button>
+        </div>
+        
+        <div class="progress-section">
+            <h2>今日の進捗</h2>
+            <div class="progress-stats">
+                <div class="stat">
+                    <div id="completed-count" class="stat-value">0</div>
+                    <div class="stat-label">完了</div>
+                </div>
+                <div class="stat">
+                    <div id="focused-time" class="stat-value">0分</div>
+                    <div class="stat-label">集中時間</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/static/js/timer.js"></script>
+</body>
+</html>
