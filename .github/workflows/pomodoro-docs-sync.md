@@ -1,11 +1,12 @@
 ---
 description: Detect code changes under 1.pomodoro/ and update documentation to keep specs aligned with source code
 on:
-  push:
-    branches: [main]
-    paths:
-      - "1.pomodoro/**"
-      - "!1.pomodoro/docs/**"
+  # Pushトリガーはシークレット設定後に有効化してください
+  # push:
+  #   branches: [main]
+  #   paths:
+  #     - "1.pomodoro/**"
+  #     - "!1.pomodoro/docs/**"
   workflow_dispatch:
 permissions:
   contents: read
