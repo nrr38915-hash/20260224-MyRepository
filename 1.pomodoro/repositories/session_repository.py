@@ -61,10 +61,15 @@ class SessionRepository:
         with get_db() as conn:
             cursor = conn.cursor()
             query = 'SELECT * FROM sessions WHERE user_id = ? ORDER BY started_at DESC'
-            if limit:
-                query += f' LIMIT {limit}'
+            params = [user_id]
             
-            cursor.execute(query, (user_id,))
+            if limit:
+                # limitを整数として検証してSQLインジェクションを防止
+                limit = int(limit)
+                query += ' LIMIT ?'
+                params.append(limit)
+            
+            cursor.execute(query, params)
             rows = cursor.fetchall()
             
             return [

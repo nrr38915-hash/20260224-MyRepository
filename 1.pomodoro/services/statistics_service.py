@@ -84,12 +84,9 @@ class StatisticsService:
         this_week_completed = sum(1 for s in this_week_sessions if s.completed)
         this_week_minutes = sum(s.duration_minutes for s in this_week_sessions if s.completed)
         
-        # 先週のデータ（簡易実装: 7-14日前）
-        # TODO: より正確な週の境界を考慮
-        two_weeks_ago = (now - timedelta(days=14)).isoformat()
-        one_week_ago = (now - timedelta(days=7)).isoformat()
-        
         # TODO: 先週のデータ取得ロジックを実装
+        # 現在は今週のデータのみ返す（先週データは0）
+        # 将来実装: ISO 8601形式の週（月曜開始）に基づいた正確な週の境界計算
         
         return {
             'this_week': {
@@ -97,7 +94,8 @@ class StatisticsService:
                 'focus_minutes': this_week_minutes
             },
             'last_week': {
-                'completed': 0,  # TODO: 実装
-                'focus_minutes': 0  # TODO: 実装
-            }
+                'completed': 0,  # TODO: 先週の完了数を計算
+                'focus_minutes': 0  # TODO: 先週の集中時間を計算
+            },
+            'note': '先週のデータは現在未実装です'
         }
