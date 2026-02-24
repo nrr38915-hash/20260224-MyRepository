@@ -20,7 +20,8 @@
 
 1. **GitHub Copilot トークンを取得する**:
    - GitHub Copilot CLI を使用するには、有効な GitHub Copilot サブスクリプションが必要です
-   - トークンの取得方法については、[GitHub Copilot CLI のドキュメント](https://github.github.com/gh-aw/reference/engines/#github-copilot-default) を参照してください
+   - GitHub Copilot の設定については、GitHub の公式ドキュメントを参照してください
+   - 詳細情報: [GitHub Copilot CLI](https://github.github.com/gh-aw/reference/engines/#github-copilot-default) （アクセスには権限が必要な場合があります）
 
 2. **リポジトリシークレットを設定する**:
    - リポジトリの Settings > Secrets and variables > Actions に移動
@@ -57,4 +58,8 @@
 
 ### 代替案
 
-GitHub Copilot を使用しない場合は、ワークフローソースファイル (`.github/workflows/pomodoro-docs-sync.md`) を編集して、異なるエンジンを指定することができます。詳細については、[gh-aw のドキュメント](https://github.github.com/gh-aw/introduction/overview/) を参照してください。
+GitHub Copilot を使用しない場合は、ワークフローソースファイル (`.github/workflows/pomodoro-docs-sync.md`) を編集して、異なるエンジンを指定することができます。
+
+詳細については以下を参照してください：
+- [gh-aw ドキュメント](https://github.github.com/gh-aw/introduction/overview/) （アクセスには権限が必要な場合があります）
+- または、ワークフローを削除してドキュメントを手動で管理することも検討してください
